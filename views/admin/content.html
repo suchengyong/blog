@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+
+<ol class="breadcrumb">
+    <li><a href="/">管理首页</a></li>
+    <li><span>内容首页</span></li>
+</ol>
+<h2>内容列表</h2>
+<table class="table table-hover">
+    <tr>
+        <th>ID</th>
+        <th>分类名称</th>
+        <th>作者</th>
+        <th>内容标题</th>
+        <th>内容描述</th>
+        <th>具体内容</th>
+        <th>阅读量</th>
+        <th>创建时间</th>
+        <th>操作</th>
+    </tr>
+    {% for content in contents %}
+    <tr>
+        <td>{{content._id.toString()}}</td>
+        <td>{{content.category.name}}</td>
+        <td>{{content.user.username}}</td>
+        <td>{{content.title}}</td>
+        <td>{{content.description}}</td>
+        <td>{{content.contents}}</td>
+        <td>{{content.views}}</td>
+        <td>{{content.addTime | date('Y年m月d日 H:i:s',-8*60)}}</td>
+        <td>
+            <button type="button" class="btn btn-success">
+                <a href="/admin/content/edit?id={{content._id.toString()}}">修改</a>
+            </button>
+            <button type="button" class="btn btn-danger">
+                <a href="/admin/content/delect?id={{content._id.toString()}}">删除</a>
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% include 'contentpage.html'%}
+
+
+
+{% endblock %}
